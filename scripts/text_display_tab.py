@@ -60,14 +60,20 @@ def render_my_tab():
             ## 0.1 MP (Flux minimum)
             """)  # This is a fixed, non-editable markdown box
 
-            # Editable Notes Textbox
+            # Editable Notes Textbox with initial content loaded from file
             notes_textbox = gr.Textbox(value=initial_notes, label="Notes", lines=6)
 
             # Button to save notes to the file
             save_button = gr.Button("Save")
 
-            # Define the interaction behavior: save the notes to the file when the button is clicked
+            # Button to load notes from the file (this will reload the text)
+            load_button = gr.Button("Load")
+
+            # Define the interaction behavior: save the notes to the file when the "Save" button is clicked
             save_button.click(fn=save_notes, inputs=notes_textbox, outputs=None)
+
+            # Define the interaction behavior: reload the notes into the textbox when the "Load" button is clicked
+            load_button.click(fn=load_notes, inputs=None, outputs=notes_textbox)
 
     # Return in the tuple format expected by Forge UI
     result = (my_tab, "My Basic Tab", "my_basic_tab")
