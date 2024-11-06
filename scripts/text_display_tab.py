@@ -15,9 +15,9 @@ def render_my_tab():
                        label="Info Text")
     
     # Return in the tuple format expected by Forge UI
-    result = (my_tab, "My Basic Tab", "my_basic_tab")
+    #result = (my_tab, "My Basic Tab", "my_basic_tab")
     print(f"[DEBUG] Returning tuple: {result}")
-    return result
+    return [(my_tab, "My Basic Tab", "my_basic_tab")]
 
 # Debug message before registering the callback
 print("[DEBUG] Registering the on_ui_tabs callback")
