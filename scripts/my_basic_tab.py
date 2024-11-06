@@ -12,8 +12,15 @@ def render_my_tab():
         with gr.Blocks() as my_tab:
             gr.Markdown("# Welcome to My Basic Extension")
             gr.Markdown("This is some sample text displayed on a new tab in Forge UI.")
+        
+        # Debug: Show that the tab content was successfully created
         print("[DEBUG] Successfully created Gradio Blocks for the tab")
-        return (my_tab, "My Basic Tab", "my_basic_tab")
+        
+        # Explicitly return a tuple as expected by the UI framework
+        result = (my_tab, "My Basic Tab", "my_basic_tab")
+        print(f"[DEBUG] Returning tuple: {result}")
+        return result
+    
     except Exception as e:
         print(f"[ERROR] An error occurred while rendering the tab: {e}")
         return None
