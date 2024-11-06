@@ -7,15 +7,23 @@ notes_file_path = "user_notes.txt"
 
 # Function to load notes from the text file (if it exists)
 def load_notes():
+    print(f"[DEBUG] Checking if notes file exists at {notes_file_path}...")
     if os.path.exists(notes_file_path):
+        print(f"[DEBUG] Found notes file at {notes_file_path}. Loading content...")
         with open(notes_file_path, 'r') as file:
-            return file.read()
+            content = file.read()
+        print(f"[DEBUG] Notes loaded successfully.")
+        return content
+    else:
+        print(f"[DEBUG] No notes file found at {notes_file_path}. Returning empty string.")
     return ""  # Return an empty string if no notes file exists
 
 # Function to save notes to the text file
 def save_notes(notes_text):
+    print(f"[DEBUG] Saving notes to file at {notes_file_path}...")
     with open(notes_file_path, 'w') as file:
         file.write(notes_text)
+    print(f"[DEBUG] Notes saved successfully to {notes_file_path}.")
 
 # Debug message to indicate the script has started loading
 print("[DEBUG] Loading my_basic_tab.py script...")
@@ -50,7 +58,7 @@ def render_my_tab():
             - 21:9 exact 1564 x 670, rounded 1536 x 640
             
             ## 0.1 MP (Flux minimum)
-            """, interactive=False)  # This is a fixed, non-editable markdown box
+            """)  # This is a fixed, non-editable markdown box
 
             # Editable Notes Textbox
             notes_textbox = gr.Textbox(value=initial_notes, label="Notes", lines=6)
