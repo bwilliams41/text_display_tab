@@ -3,7 +3,7 @@ from modules import script_callbacks
 import os
 
 # File path to save the notes
-notes_file_path = "user_notes.txt"
+notes_file_path = os.path.abspath("user_notes.txt")  # Absolute path for easier debugging
 
 # Function to load notes from the text file (if it exists)
 def load_notes():
@@ -12,7 +12,7 @@ def load_notes():
         print(f"[DEBUG] Found notes file at {notes_file_path}. Loading content...")
         with open(notes_file_path, 'r') as file:
             content = file.read()
-        print(f"[DEBUG] Notes loaded successfully.")
+        print(f"[DEBUG] Notes loaded successfully. Content:\n{content}")
         return content
     else:
         print(f"[DEBUG] No notes file found at {notes_file_path}. Returning empty string.")
@@ -23,7 +23,7 @@ def save_notes(notes_text):
     print(f"[DEBUG] Saving notes to file at {notes_file_path}...")
     with open(notes_file_path, 'w') as file:
         file.write(notes_text)
-    print(f"[DEBUG] Notes saved successfully to {notes_file_path}.")
+    print(f"[DEBUG] Notes saved successfully to {notes_file_path}. Content:\n{notes_text}")
 
 # Debug message to indicate the script has started loading
 print("[DEBUG] Loading my_basic_tab.py script...")
