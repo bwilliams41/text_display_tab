@@ -1,5 +1,21 @@
 import gradio as gr
 from modules import script_callbacks
+import os
+
+# File path to save the notes
+notes_file_path = "user_notes.txt"
+
+# Function to load notes from the text file (if it exists)
+def load_notes():
+    if os.path.exists(notes_file_path):
+        with open(notes_file_path, 'r') as file:
+            return file.read()
+    return ""  # Return an empty string if no notes file exists
+
+# Function to save notes to the text file
+def save_notes(notes_text):
+    with open(notes_file_path, 'w') as file:
+        file.write(notes_text)
 
 # Debug message to indicate the script has started loading
 print("[DEBUG] Loading my_basic_tab.py script...")
@@ -7,9 +23,13 @@ print("[DEBUG] Loading my_basic_tab.py script...")
 def render_my_tab():
     print("[DEBUG] Inside render_my_tab function")
     
+    # Get the initial notes from the text file
+    initial_notes = load_notes()
+
     # Define the content of the new tab using Gradio Blocks
     with gr.Blocks() as my_tab:
         with gr.Column():
+            # Fixed Box for Resolutions
             gr.Markdown("""
             ## 2.0 MP (Flux maximum)
             
@@ -30,7 +50,16 @@ def render_my_tab():
             - 21:9 exact 1564 x 670, rounded 1536 x 640
             
             ## 0.1 MP (Flux minimum)
-            """)
+            """, interactive=False)  # This is a fixed, non-editable markdown box
+
+            # Editable Notes Textbox
+            notes_textbox = gr.Textbox(value=initial_notes, label="Notes", lines=6)
+
+            # Button to save notes to the file
+            save_button = gr.Button("Save")
+
+            # Define the interaction behavior: save the notes to the file when the button is clicked
+            save_button.click(fn=save_notes, inputs=notes_textbox, outputs=None)
 
     # Return in the tuple format expected by Forge UI
     result = (my_tab, "My Basic Tab", "my_basic_tab")
