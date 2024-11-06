@@ -7,28 +7,22 @@ print("[DEBUG] Loading my_basic_tab.py script...")
 def render_my_tab():
     print("[DEBUG] Inside render_my_tab function")
     
-    # Define the content of the new tab
-    try:
-        with gr.Blocks() as my_tab:
+    # Define the content of the new tab using Gradio Blocks
+    with gr.Blocks() as my_tab:
+        with gr.Column():
             gr.Markdown("# Welcome to My Basic Extension")
-            gr.Markdown("This is some sample text displayed on a new tab in Forge UI.")
-        
-        # Debug: Show that the tab content was successfully created
-        print("[DEBUG] Successfully created Gradio Blocks for the tab")
-        
-        # Explicitly return a tuple as expected by the UI framework
-        result = (my_tab, "My Basic Tab", "my_basic_tab")
-        print(f"[DEBUG] Returning tuple: {result}")
-        return result
+            gr.Textbox(value="This is some sample text displayed on a new tab in Forge UI.", 
+                       label="Info Text")
     
-    except Exception as e:
-        print(f"[ERROR] An error occurred while rendering the tab: {e}")
-        return None
+    # Return in the tuple format expected by Forge UI
+    result = (my_tab, "My Basic Tab", "my_basic_tab")
+    print(f"[DEBUG] Returning tuple: {result}")
+    return result
 
 # Debug message before registering the callback
 print("[DEBUG] Registering the on_ui_tabs callback")
 
-# Register the callback with the updated approach and handle any errors
+# Register the callback to add the new tab
 try:
     script_callbacks.on_ui_tabs(render_my_tab)
     print("[DEBUG] Successfully registered on_ui_tabs callback")
